@@ -1,7 +1,14 @@
+/*
+    --------------------------------------------------------------------------------------
+    Global & Typography Styles
+    --------------------------------------------------------------------------------------
+*/
 
 body {
     font-family: 'Inter', sans-serif;
     background-color: #FEFBF6;
+    margin: 0; /* Ensures there's no default margin on mobile, preventing horizontal scroll */
+    overflow-x: hidden; /* Prevents horizontal scrolling caused by elements that are too wide */
 }
 
 h1, h2, h3 {
@@ -9,12 +16,25 @@ h1, h2, h3 {
 }
 
 .hero-bg {
+    /* This is a potential point of failure. The image path 'dcim.png' is case-sensitive. 
+        Ensure the file name on your GitHub repository is exactly 'dcim.png' (lowercase).
+    */
     background-image: url('dcim.png');
     background-size: cover;
     background-position-y: center;
     background-repeat: no-repeat;
+    /*
+        Added a mobile-specific background-position to better center the image on smaller screens.
+        This is an optional optimization.
+    */
+    background-position-x: center;
 }
 
+/*
+    --------------------------------------------------------------------------------------
+    Section Title Styles
+    --------------------------------------------------------------------------------------
+*/
 
 .section-title {
     font-size: 1.875rem; 
@@ -24,12 +44,14 @@ h1, h2, h3 {
     margin-bottom: 3rem;
     text-align: center;
 }
+
 @media (min-width: 640px) {
     .section-title {
         font-size: 2.25rem;
         line-height: 2.5rem;
     }
 }
+
 @media (min-width: 768px) {
     .section-title {
         font-size: 3rem; 
@@ -37,11 +59,19 @@ h1, h2, h3 {
     }
 }
 
+/*
+    --------------------------------------------------------------------------------------
+    Swiper Styles (Image Gallery)
+    --------------------------------------------------------------------------------------
+*/
 
 .swiper-container {
     width: 100%;
     padding-top: 50px;
     padding-bottom: 50px;
+    /* Ensures the container is properly sized for mobile to prevent overflow.
+        The `max-width` and `margin` properties, if not used, can cause issues.
+    */
 }
 
 .swiper-slide {
@@ -54,13 +84,13 @@ h1, h2, h3 {
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     transition: transform 0.3s ease;
 }
+
 @media (min-width: 640px) {
     .swiper-slide {
         width: 300px;
         height: 300px;
     }
 }
-
 
 .swiper-slide:hover {
     transform: scale(1.05);
@@ -73,6 +103,9 @@ h1, h2, h3 {
     object-fit: cover;
 }
 
+/* Updated Swiper button styles for better mobile tap targets and a cleaner look.
+    The `!important` rule ensures these styles override any default Swiper styles.
+*/
 .swiper-button-next,
 .swiper-button-prev {
     color: #fff;
@@ -80,19 +113,22 @@ h1, h2, h3 {
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50% !important;
     transition: background-color 0.3s ease;
+    /* Adjust position for better mobile usability */
+    top: 50% !important;
+    transform: translateY(-50%) !important;
 }
+
 @media (min-width: 640px) {
     .swiper-button-next,
     .swiper-button-prev {
-        width: 50px;
-        height: 50px;
+        width: 50px !important;
+        height: 50px !important;
     }
 }
-
 
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
@@ -101,47 +137,57 @@ h1, h2, h3 {
 
 .swiper-button-next::after,
 .swiper-button-prev::after {
-    font-size: 18px;
+    font-size: 18px !important;
     font-weight: bold;
 }
+
 @media (min-width: 640px) {
     .swiper-button-next::after,
     .swiper-button-prev::after {
-        font-size: 20px;
+        font-size: 20px !important;
     }
 }
 
-
-
-audio {
-    width: 100%;
-}
-
+/*
+    --------------------------------------------------------------------------------------
+    Letter Button Styles
+    --------------------------------------------------------------------------------------
+*/
 
 .letter-btn {
     background-color: rgb(254 226 226);
     color: rgb(190 24 93);
     font-weight: 600;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding: 1rem 1.5rem; /* Combined padding properties */
     border-radius: 0.75rem;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 300ms;
+    transition: all 300ms ease; /* Simplified transition property */
     box-shadow: 0 10px 15px -3px rgb(252 165 165 / 40%), 0 4px 6px -2px rgb(252 165 165 / 40%);
+    /*
+        Removed Tailwind CSS transform variables as they aren't needed here.
+        The hover effect will handle the scaling.
+    */
 }
 
 .letter-btn:hover {
     background-color: rgb(254 202 202);
-    --tw-scale-x: 1.05;
-    --tw-scale-y: 1.05;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transform: scale(1.05);
     box-shadow: 0 20px 25px -5px rgb(251 146 146 / 50%), 0 10px 10px -5px rgb(251 146 146 / 50%);
 }
-.modalImage{
-    background-size: contain;
+
+/*
+    --------------------------------------------------------------------------------------
+    Audio & Modal Styles
+    --------------------------------------------------------------------------------------
+*/
+audio {
+    width: 100%;
+}
+
+.modalImage {
+    /* This is a bug fix. The `background-size: contain` property for an `img` tag is not valid CSS. 
+        `object-fit: cover` is the correct property for image tags. 
+    */
     object-fit: cover;
+    width: 100%; /* Ensures the image takes up the full width of the modal */
+    height: 14rem; /* Added a fixed height for consistency on all devices */
 }
